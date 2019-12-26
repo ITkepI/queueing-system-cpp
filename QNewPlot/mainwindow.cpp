@@ -13,30 +13,12 @@ MainWindow::~MainWindow()
 	delete ui;
 }
 
-public double begin = -1; //Начало интервала, где рисуем график по оси Ox
-public double end = 1; //Конец интервала, где рисуем график по оси Ox
-public double step = 0.1; //Шаг, с которым будем пробегать по оси Ox
-
-void MainWindow::on_PushButton_clicked(double begin, double end, char* labelX, char* labelY)
+void MainWindow::on_CreatePlot_clicked(double beginX, double endX, double pointX, double pointY, char* labelX, char* labelY)
 {
 	//Рисуем график
 
-		//Сгенерируем данные
-		//Для этого создадим два массива точек:
-		//один для созранения x координат точек,
-		//а второй для y соответственно
+	//int N = (endX - beginX) / step + 2; //Вычисляем количество точек, которые будем отрисовывать
 
-	int N = (end - begin) / step + 2; //Вычисляем количество точек, которые будем отрисовывать
-	QVector<double> x(N), y(N); //Массивы координат точек
-
-	//Вычисляем наши данные
-	int i = 0;
-	for (double X = begin; X <= end; X += step)//Пробегаем по всем точкам
-	{
-		x[i] = X;
-		y[i] = X * X;//Формула нашей функции
-		i++;
-	}
 
 	//Добавляем один график в widget
 	ui->widget->addGraph();
@@ -46,14 +28,14 @@ void MainWindow::on_PushButton_clicked(double begin, double end, char* labelX, c
 	ui->widget->graph(0)->setPen(QColor(50, 50, 50, 255));//задаем цвет точки
 	ui->widget->graph(0)->setLineStyle(QCPGraph::lsNone);//убираем линии
 	//формируем вид точек
-	ui->widget->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 4));
+	ui->widget->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 2));
 
 	//Подписываем оси Ox и Oy
-	ui->widget->xAxis->setLabel("x");
-	ui->widget->yAxis->setLabel("y");
+	ui->widget->xAxis->setLabel(labelX);
+	ui->widget->yAxis->setLabel(labelY);
 
 	//Установим область, которая будет показываться на графике
-	ui->widget->xAxis->setRange(begin, end);//Для оси Ox
+	ui->widget->xAxis->setRange(beginX, endX);//Для оси Ox
 
 	//Для показа границ по оси Oy сложнее, так как надо по правильному
 	//вычислить минимальное и максимальное значение в векторах
@@ -72,4 +54,15 @@ void MainWindow::on_PushButton_clicked(double begin, double end, char* labelX, c
 void MainWindow::on_Clear_clicked()
 {
 	ui->widget->clearGraphs();//Если нужно, но очищаем все графики
+}
+
+void MainWindow::add_point(double pointX, double pointY) 
+{
+	QVector<double> x(1), y(1); //Массивы координат точек
+
+	x[0] = pointX;
+	y[0] = pointY;
+
+	//Говорим, что отрисовать нужно график по нашим двум массивам x и y
+	ui->widget->graph(0)->setData(x, y);
 }

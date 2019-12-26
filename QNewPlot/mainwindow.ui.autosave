@@ -24,7 +24,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="PushButton">
+   <widget class="QPushButton" name="CreatePlot">
     <property name="geometry">
      <rect>
       <x>260</x>
@@ -40,7 +40,7 @@
    <widget class="QPushButton" name="Clear">
     <property name="geometry">
      <rect>
-      <x>140</x>
+      <x>160</x>
       <y>210</y>
       <width>80</width>
       <height>31</height>
@@ -50,6 +50,23 @@
      <string>Clear</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="addPoint">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>220</y>
+      <width>80</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>AddPoint</string>
+    </property>
+   </widget>
+   <zorder>widget</zorder>
+   <zorder>CreatePlot</zorder>
+   <zorder>addPoint</zorder>
+   <zorder>Clear</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
